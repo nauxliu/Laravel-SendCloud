@@ -21,7 +21,7 @@ composer require naux/sendcloud
 
 修改 `config/app.php`
 
-```
+```php
 'providers' => [
     // 删除这行
     Illuminate\Mail\MailServiceProvider::class,
@@ -33,7 +33,7 @@ composer require naux/sendcloud
 
 编辑 `config/services.php`, 添加以下配置
 
-```
+```php
 'sendcloud' => [
     'api_user' => env('SEND_CLOUD_USER'),
     'api_key'  => env('SEND_CLOUD_KEY'),
@@ -52,7 +52,7 @@ SEND_CLOUD_KEY=    # 分配的 api_key
 #### 普通发送：
 用法完全和系统自带的一样, 具体请参照官方文档： http://laravel.com/docs/5.1/mail
 
-```
+```php
 Mail::send('emails.welcome', $data, function ($message) {
     $message->from('us@example.com', 'Laravel');
 
