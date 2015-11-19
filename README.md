@@ -1,6 +1,9 @@
 # Laravel-SendCloud
 Laravel 5.1 的 SendCloud 驱动
 
+##### 优点：
+普通发送完全兼容官方的用法，同时可以随时修改配置文件改为其他驱动。
+
 ## 安装
 
 在项目目录下执行
@@ -40,9 +43,11 @@ composer require naux/sendcloud
 ],
 ```
 
-在 `.env` 中配置你的密钥
+在 `.env` 中配置你的密钥， 并修改邮件驱动为 `sendcloud`
 
 ```ini
+MAIL_DRIVER=sendcloud
+
 SEND_CLOUD_USER=   # 创建的 api_user
 SEND_CLOUD_KEY=    # 分配的 api_key
 ```
