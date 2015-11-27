@@ -1,6 +1,9 @@
 # Laravel-SendCloud
 Laravel 5.1 的 SendCloud 驱动
 
+##### 优点：
+普通发送完全兼容官方的用法，同时可以随时修改配置文件改为其他驱动。
+
 ## 安装
 
 在项目目录下执行
@@ -21,7 +24,7 @@ composer require naux/sendcloud
 
 修改 `config/app.php`
 
-```
+```php
 'providers' => [
     // 删除这行
     Illuminate\Mail\MailServiceProvider::class,
@@ -33,16 +36,18 @@ composer require naux/sendcloud
 
 编辑 `config/services.php`, 添加以下配置
 
-```
+```php
 'sendcloud' => [
     'api_user' => env('SEND_CLOUD_USER'),
     'api_key'  => env('SEND_CLOUD_KEY'),
 ],
 ```
 
-在 `.env` 中配置你的密钥
+在 `.env` 中配置你的密钥， 并修改邮件驱动为 `sendcloud`
 
 ```ini
+MAIL_DRIVER=sendcloud
+
 SEND_CLOUD_USER=   # 创建的 api_user
 SEND_CLOUD_KEY=    # 分配的 api_key
 ```
@@ -52,7 +57,7 @@ SEND_CLOUD_KEY=    # 分配的 api_key
 #### 普通发送：
 用法完全和系统自带的一样, 具体请参照官方文档： http://laravel.com/docs/5.1/mail
 
-```
+```php
 Mail::send('emails.welcome', $data, function ($message) {
     $message->from('us@example.com', 'Laravel');
 
@@ -73,7 +78,7 @@ Mail::send('随便传个空view', [], function ($message) {
     
     // 模板变量
     $bind_data = ['url' => 'http://naux.me'];
-    $template = new SendCloudTemplate('模板名', bind_data);
+    $template = new SendCloudTemplate('模板名', $bind_data);
     
     $message->getSwiftMessage()->setBody($template);
 });
@@ -84,7 +89,7 @@ Mail::send('随便传个空view', [], function ($message) {
 ```php
 // 模板变量
 $bind_data = ['url' => 'http://naux.me'];
-$template = new SendCloudTemplate('模板名', bind_data);
+$template = new SendCloudTemplate('模板名', $bind_data);
 
 Mail::raw($template, function ($message) {
     $message->from('us@example.com', 'Laravel');
