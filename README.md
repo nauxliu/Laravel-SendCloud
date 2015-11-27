@@ -31,15 +31,6 @@ composer require naux/sendcloud
 ];
 ```
 
-编辑 `config/services.php`, 添加以下配置
-
-```php
-'sendcloud' => [
-    'api_user' => env('SEND_CLOUD_USER'),
-    'api_key'  => env('SEND_CLOUD_KEY'),
-],
-```
-
 在 `.env` 中配置你的密钥， 并修改邮件驱动为 `sendcloud`
 
 ```ini
