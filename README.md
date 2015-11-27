@@ -22,14 +22,11 @@ composer require naux/sendcloud
 
 ## 配置
 
-修改 `config/app.php`
+修改 `config/app.php`，添加服务提供者
 
 ```php
 'providers' => [
-    // 删除这行
-    Illuminate\Mail\MailServiceProvider::class,
-    
-    // 替换为这个
+   // 添加这行
     Naux\Mail\MailServiceProvider::class,
 ];
 ```
