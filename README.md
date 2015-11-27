@@ -78,7 +78,7 @@ Mail::send('随便传个空view', [], function ($message) {
     
     // 模板变量
     $bind_data = ['url' => 'http://naux.me'];
-    $template = new SendCloudTemplate('模板名', bind_data);
+    $template = new SendCloudTemplate('模板名', $bind_data);
     
     $message->getSwiftMessage()->setBody($template);
 });
@@ -89,7 +89,7 @@ Mail::send('随便传个空view', [], function ($message) {
 ```php
 // 模板变量
 $bind_data = ['url' => 'http://naux.me'];
-$template = new SendCloudTemplate('模板名', bind_data);
+$template = new SendCloudTemplate('模板名', $bind_data);
 
 Mail::raw($template, function ($message) {
     $message->from('us@example.com', 'Laravel');
