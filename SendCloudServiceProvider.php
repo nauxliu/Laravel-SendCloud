@@ -10,7 +10,7 @@ namespace Naux\Mail;
 use Illuminate\Mail\TransportManager;
 use Illuminate\Support\ServiceProvider;
 
-class SendCLoudServiceProvider extends ServiceProvider
+class SendCloudServiceProvider extends ServiceProvider
 {
     /**
      * Register the service provider.
@@ -25,5 +25,12 @@ class SendCLoudServiceProvider extends ServiceProvider
                 return new SendCloudTransport($api_user, $api_key);
             });
         });
+    }
+
+    public function boot()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/services.php', 'services'
+        );
     }
 }
