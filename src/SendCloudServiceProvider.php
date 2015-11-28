@@ -30,7 +30,7 @@ class SendCloudServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/config/services.php', 'services'
+            dirname(__DIR__).'/config/services.php', 'services'
         );
     }
 }
