@@ -27,7 +27,7 @@ composer require naux/sendcloud
 ```php
 'providers' => [
    // 添加这行
-    Naux\Mail\MailServiceProvider::class,
+    Naux\Mail\SendCloudServiceProvider::class,
 ];
 ```
 
