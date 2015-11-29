@@ -12,14 +12,6 @@ Laravel 5.1 的 SendCloud 驱动
 composer require naux/sendcloud
 ```
 
-或者再你的 `composer.json` 中添加依赖
-
-```json
-"require": {
-    "naux/sendcloud": "dev-master"
-},
-```
-
 ## 配置
 
 修改 `config/app.php`，添加服务提供者
