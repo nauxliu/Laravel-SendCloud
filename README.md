@@ -2,7 +2,7 @@
 Laravel 5.1 的 SendCloud 驱动
 
 ##### 优点：
-普通发送完全兼容官方的用法，同时可以随时修改配置文件改为其他驱动。
+普通发送方式完全兼容官方用法，可随时修改配置文件改为其他驱动，而不需要改动业务代码
 
 ## 安装
 
@@ -12,14 +12,6 @@ Laravel 5.1 的 SendCloud 驱动
 composer require naux/sendcloud
 ```
 
-或者再你的 `composer.json` 中添加依赖
-
-```json
-"require": {
-    "naux/sendcloud": "dev-master"
-},
-```
-
 ## 配置
 
 修改 `config/app.php`，添加服务提供者
@@ -27,7 +19,7 @@ composer require naux/sendcloud
 ```php
 'providers' => [
    // 添加这行
-    Naux\Mail\MailServiceProvider::class,
+    Naux\Mail\SendCloudServiceProvider::class,
 ];
 ```
 
