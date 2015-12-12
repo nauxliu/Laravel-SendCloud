@@ -28,8 +28,8 @@ class SendCloudTransport extends Transport
      */
     public function __construct($api_user, $api_key)
     {
-        $this->query['api_user'] = $api_user;
-        $this->query['api_key']  = $api_key;
+        $this->addQuery('api_user', $api_user);
+        $this->addQuery('api_key', $api_key);
     }
 
     /**
@@ -45,12 +45,19 @@ class SendCloudTransport extends Transport
      */
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
-        $this->query['subject']  = $message->getSubject();
-        $this->query['from']     = $this->getAddress($message->getFrom());
-        $this->query['fromname'] = $this->getFromName($message);
-        $this->query['replyto']  = $this->getAddress($message->getReplyTo());
-        $this->query['cc']       = $this->getAddresses($message->getCc());
-        $this->query['bcc']      = $this->getAddresses($message->getBcc());
+        $this->addQuery('subject', $message->getSubject());
+        $this->addQuery('from', $this->getAddress($message->getFrom()));
+        $this->addQuery('fromname', $this->getFromName($message));
+        $this->addQuery('replyto', $this->getAddress($message->getReplyTo()));
+        $this->addQuery('cc', $this->getAddresses($message->getCc()));
+        $this->addQuery('bcc', $this->getAddresses($message->getBCc()));
+
+        // 附件
+        if (!empty($message->getChildren())) {
+            foreach ($message->getChildren() as $file) {
+                $this->addQuery('files[]', $file->getBody(), $file->getFilename());
+            }
+        }
 
         $this->query = array_filter($this->query);
 
@@ -125,11 +132,11 @@ class SendCloudTransport extends Transport
     {
         $http = new Client();
 
-        $this->query['html'] = $message->getBody() ?: '';
-        $this->query['to']   = $this->getAddress($message->getTo());
+        $this->addQuery('html', $message->getBody() ?: '');
+        $this->addQuery('to', $this->getAddress($message->getTo()));
 
         $response = $http->post(self::SEND_HTML_URL, [
-            'form_params' => $this->query,
+            'multipart' => $this->query,
         ]);
 
         return $this->response($response);
@@ -150,15 +157,15 @@ class SendCloudTransport extends Transport
     {
         $http = new Client();
 
-        $template                            = $message->getBody();
-        $this->query['template_invoke_name'] = $template->getName();
-        $this->query['substitution_vars']    = json_encode([
+        $template = $message->getBody();
+        $this->addQuery('template_invoke_name', $template->getName());
+        $this->addQuery('substitution_vars', json_encode([
             'to'  => [$this->getAddress($message->getTo())],
             'sub' => $template->getBindData(),
-        ]);
+        ]));
 
         $response = $http->post(self::SEND_TEMPLATE_URL, [
-            'form_params' => $this->query,
+            'multipart' => $this->query,
         ]);
 
         return $this->response($response);
@@ -182,5 +189,26 @@ class SendCloudTransport extends Transport
         }
 
         return true;
+    }
+
+    /**
+     * 添加查询条件.
+     *
+     * @param $name
+     * @param $contents
+     * @param null $filename
+     */
+    public function addQuery($name, $contents, $filename = null)
+    {
+        $query = [
+            'name'     => $name,
+            'contents' => $contents,
+        ];
+
+        if ($filename) {
+            $query['filename'] = $filename;
+        }
+
+        $this->query[] = $query;
     }
 }
