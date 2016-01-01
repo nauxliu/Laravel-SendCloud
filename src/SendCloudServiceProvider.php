@@ -17,6 +17,10 @@ class SendCloudServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            dirname(__DIR__).'/config/services.php', 'services'
+        );
+        
         $this->app->resolving('swift.transport', function (TransportManager $tm) {
             $tm->extend('sendcloud', function () {
                 $api_user = config('services.sendcloud.api_user');
@@ -29,8 +33,6 @@ class SendCloudServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->mergeConfigFrom(
-            dirname(__DIR__).'/config/services.php', 'services'
-        );
+        
     }
 }
