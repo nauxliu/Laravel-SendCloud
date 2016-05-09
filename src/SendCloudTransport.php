@@ -103,20 +103,20 @@ class SendCloudTransport extends Transport
      *
      * @param $data
      *
-     * @return string
+     * @return string|null
      */
     protected function getAddresses($data)
     {
-        if (!$data) {
-            return;
+        if (!$data || !is_array($data)) {
+            return null;
         }
         $data = array_keys($data);
 
-        if (is_array($data) && !empty($data)) {
-            return implode(';', $data);
+        if (empty($data)) {
+            return null;
         }
 
-        return;
+        return implode(';', $data);
     }
 
     /**
