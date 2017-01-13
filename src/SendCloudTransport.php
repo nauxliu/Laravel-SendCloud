@@ -55,6 +55,9 @@ class SendCloudTransport extends Transport
         // 附件
         if (!empty($message->getChildren())) {
             foreach ($message->getChildren() as $file) {
+                if ($file instanceof \Swift_MimePart) {
+                    continue;
+                }
                 $this->addQuery('files[]', $file->getBody(), $file->getFilename());
             }
         }
