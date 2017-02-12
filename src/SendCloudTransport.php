@@ -18,7 +18,7 @@ class SendCloudTransport extends Transport
     const SEND_HTML_URL     = 'http://sendcloud.sohu.com/webapi/mail.send.json';
     const SEND_TEMPLATE_URL = 'http://sendcloud.sohu.com/webapi/mail.send_template.json';
 
-    private $query = [];
+    protect $query = [];
 
     /**
      * SendCloudTransport constructor.
@@ -71,6 +71,8 @@ class SendCloudTransport extends Transport
         } else {
             $this->sendRawMessage($message);
         }
+        
+        $this->query = [];
     }
 
     /**
