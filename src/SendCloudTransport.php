@@ -67,12 +67,14 @@ class SendCloudTransport extends Transport
         $body = $message->getBody();
 
         if ($body instanceof SendCloudTemplate) {
-            $this->sendTemplate($message);
+            $result = $this->sendTemplate($message);
         } else {
-            $this->sendRawMessage($message);
+            $result = $this->sendRawMessage($message);
         }
         
         $this->query = [];
+        
+        return $result;
     }
 
     /**
