@@ -1,5 +1,5 @@
 # Laravel-SendCloud
-Laravel 5.1 的 SendCloud 驱动
+Laravel 5.1 + 的 SendCloud 驱动
 
 ##### 优点：
 普通发送方式完全兼容官方用法，可随时修改配置文件改为其他驱动，而不需要改动业务代码
