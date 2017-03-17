@@ -30,6 +30,8 @@ class SendCloudTransport extends Transport
     {
         $this->addQuery('api_user', $api_user);
         $this->addQuery('api_key', $api_key);
+        $this->api_user = $api_user;
+        $this->api_key  = $api_key;
     }
 
     /**
