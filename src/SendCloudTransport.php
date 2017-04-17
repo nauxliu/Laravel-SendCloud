@@ -20,6 +20,9 @@ class SendCloudTransport extends Transport
 
     protected $query = [];
 
+    private $api_user;
+    private $api_key;
+
     /**
      * SendCloudTransport constructor.
      *
@@ -28,8 +31,8 @@ class SendCloudTransport extends Transport
      */
     public function __construct($api_user, $api_key)
     {
-        $this->addQuery('api_user', $api_user);
-        $this->addQuery('api_key', $api_key);
+        $this->api_user = $api_user;
+        $this->api_key  = $api_key;
     }
 
     /**
@@ -45,6 +48,8 @@ class SendCloudTransport extends Transport
      */
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
+        $this->addQuery('api_user', $this->api_user);
+        $this->addQuery('api_key', $this->api_key);
         $this->addQuery('subject', $message->getSubject());
         $this->addQuery('from', $this->getAddress($message->getFrom()));
         $this->addQuery('fromname', $this->getFromName($message));
