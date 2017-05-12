@@ -46,25 +46,7 @@ Mail::send('emails.welcome', $data, function ($message) {
 ```
 
 #### 模板发送
-用法和普通发送类似，不过需要将 `body` 设置为 `SendCloudTemplate` 对象，达到目的有几种方法
-
-##### 第一种用法： 
-
-```php
-Mail::send('随便传个空view', [], function ($message) {
-    $message->from('us@example.com', 'Laravel');
-
-    $message->to('foo@example.com')->cc('bar@example.com');
-    
-    // 模板变量
-    $bind_data = ['url' => 'http://naux.me'];
-    $template = new SendCloudTemplate('模板名', $bind_data);
-    
-    $message->getSwiftMessage()->setBody($template);
-});
-```
-
-##### 第二种用法： 
+用法和普通发送类似，不过需要将 `body` 设置为 `SendCloudTemplate` 对象
 
 ```php
 // 模板变量
@@ -77,8 +59,3 @@ Mail::raw($template, function ($message) {
     $message->to('foo@example.com')->cc('bar@example.com');
 });
 ```
-
-##### 其他用法： 
-
-看了上面两种用法，其他用法对照官方文档也能猜出来了吧，如使用 `queue` 发送等 ~
-
