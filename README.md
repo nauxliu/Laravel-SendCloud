@@ -48,6 +48,8 @@ Mail::send('emails.welcome', $data, function ($message) {
 #### 模板发送
 用法和普通发送类似，不过需要将 `body` 设置为 `SendCloudTemplate` 对象
 
+> 使用模板发送不与其他邮件驱动兼容 ！！！
+
 ```php
 // 模板变量
 $bind_data = ['url' => 'http://naux.me'];
