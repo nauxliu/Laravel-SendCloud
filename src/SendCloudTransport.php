@@ -5,7 +5,7 @@ namespace Naux\Mail;
 use GuzzleHttp\Client;
 use Illuminate\Mail\Transport\Transport;
 use Psr\Http\Message\ResponseInterface;
-use Swift_Mime_Message;
+use Swift_Mime_SimpleMessage;
 
 /**
  * Created by PhpStorm.
@@ -41,12 +41,12 @@ class SendCloudTransport extends Transport
      * Recipient/sender data will be retrieved from the Message API.
      * The return value is the number of recipients who were accepted for delivery.
      *
-     * @param Swift_Mime_Message $message
+     * @param Swift_Mime_SimpleMessage $message
      * @param string[]           $failedRecipients An array of failures by-reference
      *
      * @return int
      */
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
+    public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
     {
         $this->addQuery('api_user', $this->api_user);
         $this->addQuery('api_key', $this->api_key);
@@ -101,11 +101,11 @@ class SendCloudTransport extends Transport
     /**
      * 获取发件人名.
      *
-     * @param Swift_Mime_Message $message
+     * @param Swift_Mime_SimpleMessage $message
      *
      * @return mixed
      */
-    protected function getFromName(Swift_Mime_Message $message)
+    protected function getFromName(Swift_Mime_SimpleMessage $message)
     {
         return array_get(array_values($message->getFrom()), 0);
     }
@@ -134,13 +134,13 @@ class SendCloudTransport extends Transport
     /**
      * 发送普通邮件.
      *
-     * @param Swift_Mime_Message $message
+     * @param Swift_Mime_SimpleMessage $message
      *
      * @return bool
      *
      * @throws SendCloudException
      */
-    protected function sendRawMessage(Swift_Mime_Message $message)
+    protected function sendRawMessage(Swift_Mime_SimpleMessage $message)
     {
         $http = new Client();
 
@@ -157,7 +157,7 @@ class SendCloudTransport extends Transport
     /**
      * 发送模板邮件.
      *
-     * @param Swift_Mime_Message $message
+     * @param Swift_Mime_SimpleMessage $message
      *
      * @return bool
      *
@@ -165,7 +165,7 @@ class SendCloudTransport extends Transport
      *
      * @internal param SendCloudTemplate $template
      */
-    protected function sendTemplate(Swift_Mime_Message $message)
+    protected function sendTemplate(Swift_Mime_SimpleMessage $message)
     {
         $http = new Client();
 
