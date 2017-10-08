@@ -1,14 +1,7 @@
-<p align="center">
-  <br>
-  <b>创造不息，交付不止</b>
-  <br>
-  <a href="https://www.yousails.com">
-    <img src="https://yousails.com/banners/brand.png" width=350>
-  </a>
-</p>
-
 # Laravel-SendCloud
 Laravel 5.X 的 SendCloud 驱动
+
+> `Laravel 5.5` 以下请使用 `1.1.3` 版本
 
 ##### 优点：
 普通发送方式完全兼容官方用法，可随时修改配置文件改为其他驱动，而不需要改动业务代码
@@ -70,3 +63,9 @@ Mail::raw($template, function ($message) {
     $message->to('foo@example.com')->cc('bar@example.com');
 });
 ```
+
+## Sponsors
+
+<a href="https://www.yousails.com">
+  <img src="https://yousails.com/banners/brand.png" width=350>
+</a>
