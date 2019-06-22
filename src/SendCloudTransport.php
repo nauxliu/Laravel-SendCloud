@@ -145,7 +145,7 @@ class SendCloudTransport extends Transport
         $http = new Client();
 
         $this->addQuery('html', $message->getBody() ?: '');
-        $this->addQuery('to', $this->getAddress($message->getTo()));
+        $this->addQuery('to', $this->getAddresses($message->getTo()));
 
         $response = $http->post(self::SEND_HTML_URL, [
             'multipart' => $this->query,
