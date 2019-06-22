@@ -172,7 +172,7 @@ class SendCloudTransport extends Transport
         $template = $message->getBody();
         $this->addQuery('template_invoke_name', $template->getName());
         $this->addQuery('substitution_vars', json_encode([
-            'to'  => [$this->getAddress($message->getTo())],
+            'to'  => [$this->getAddresses($message->getTo())],
             'sub' => $template->getBindData(),
         ]));
 
