@@ -145,7 +145,7 @@ class SendCloudTransport extends Transport
         $http = new Client();
 
         $this->addQuery('html', $message->getBody() ?: '');
-        $this->addQuery('to', $this->getAddress($message->getTo()));
+        $this->addQuery('to', $this->getAddresses($message->getTo()));
 
         $response = $http->post(self::SEND_HTML_URL, [
             'multipart' => $this->query,
@@ -172,7 +172,7 @@ class SendCloudTransport extends Transport
         $template = $message->getBody();
         $this->addQuery('template_invoke_name', $template->getName());
         $this->addQuery('substitution_vars', json_encode([
-            'to'  => [$this->getAddress($message->getTo())],
+            'to'  => [$this->getAddresses($message->getTo())],
             'sub' => $template->getBindData(),
         ]));
 
