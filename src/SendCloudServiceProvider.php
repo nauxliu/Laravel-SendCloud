@@ -23,8 +23,8 @@ class SendCloudServiceProvider extends ServiceProvider
         
         $this->app->resolving('swift.transport', function (TransportManager $tm) {
             $tm->extend('sendcloud', function () {
-                $api_user = config('services.sendcloud.api_user');
-                $api_key = config('services.sendcloud.api_key');
+                $api_user = $this->app->make('config')->get('services.sendcloud.api_user');
+                $api_key = $this->app->make('config')->get('services.sendcloud.api_key');
 
                 return new SendCloudTransport($api_user, $api_key);
             });

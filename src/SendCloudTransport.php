@@ -4,6 +4,7 @@ namespace Naux\Mail;
 
 use GuzzleHttp\Client;
 use Illuminate\Mail\Transport\Transport;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ResponseInterface;
 use Swift_Mime_SimpleMessage;
 
@@ -95,7 +96,7 @@ class SendCloudTransport extends Transport
             return;
         }
 
-        return array_get(array_keys($data), 0, null);
+        return Arr::get(array_keys($data), 0, null);
     }
 
     /**
@@ -107,7 +108,7 @@ class SendCloudTransport extends Transport
      */
     protected function getFromName(Swift_Mime_SimpleMessage $message)
     {
-        return array_get(array_values($message->getFrom()), 0);
+        return Arr::get(array_values($message->getFrom()), 0);
     }
 
     /**
@@ -197,7 +198,7 @@ class SendCloudTransport extends Transport
         $res = json_decode($response->getBody()->getContents());
 
         if (isset($res->errors)) {
-            throw new SendCloudException(array_get($res->errors, 0));
+            throw new SendCloudException(Arr::get($res->errors, 0));
         }
 
         return true;
